@@ -1,0 +1,144 @@
+---
+MTV Operator 
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: install-mtv
+  namespace: open-cluster-management-global-set
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1beta1
+        kind: OperatorPolicy
+        metadata:
+          name: install-mtv
+        spec:
+          remediationAction: enforce
+          severity: critical
+          complianceType: musthave
+          subscription:
+            channel: release-v.2.6
+            version: 2.6.2
+            installPlanApproval: Automatic
+            upgradeApproval: Automatic 
+            name: mtv-operator
+            source: redhat-operators
+            sourceNamespace: openshift-marketplace      
+---
+
+FAR Operator (Fencing Agent)
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: install-far
+  namespace: open-cluster-management-global-set
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1beta1
+        kind: OperatorPolicy
+        metadata:
+          name: install-far
+        spec:
+          remediationAction: enforce
+          severity: critical
+          complianceType: musthave
+          subscription:
+            channel: stable
+            version: 0.4.0
+            installPlanApproval: Automatic
+            upgradeApproval: Automatic 
+            name: far-operator
+            source: redhat-operators
+            sourceNamespace: openshift-marketplace
+            
+---
+OADP Operator
+---            
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: install-oadp
+  namespace: open-cluster-management-global-set
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1beta1
+        kind: OperatorPolicy
+        metadata:
+          name: install-oadp
+        spec:
+          remediationAction: enforce
+          severity: critical
+          complianceType: musthave
+          subscription:
+            channel: stable-1.3
+            version: 1.3.2
+            installPlanApproval: Automatic
+            upgradeApproval: Automatic 
+            name: oadp-operator
+            source: redhat-operators
+            sourceNamespace: openshift-marketplace              
+---
+AAP Operator
+---            
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: install-aap
+  namespace: open-cluster-management-global-set
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1beta1
+        kind: OperatorPolicy
+        metadata:
+          name: install-aap
+        spec:
+          remediationAction: enforce
+          severity: critical
+          complianceType: musthave
+          subscription:
+            channel: stable-2.4-cluster-scoped
+            installPlanApproval: Automatic
+            upgradeApproval: Automatic 
+            name: aap-operator
+            source: redhat-operators
+            sourceNamespace: openshift-marketplace        
+---
+NMstate Operator (Network Manager)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-nmstate
+---                  
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: install-nmstate
+  namespace: open-cluster-management-global-set
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1beta1
+        kind: OperatorPolicy
+        metadata:
+          name: install-nmstate
+        spec:
+          remediationAction: enforce
+          severity: critical
+          complianceType: musthave
+          subscription:
+            channel: stable
+            installPlanApproval: Automatic
+            upgradeApproval: Automatic 
+            name: nmstateoperator
+            source: redhat-operators
+            sourceNamespace: openshift-marketplace                         
