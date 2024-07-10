@@ -1,4 +1,32 @@
 ---
+OpenShift Virt Operator 
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: install-openshift-virt
+  namespace: open-cluster-management-global-set
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1beta1
+        kind: OperatorPolicy
+        metadata:
+          name: install-ovirt
+        spec:
+          remediationAction: enforce
+          severity: critical
+          complianceType: musthave
+          subscription:
+            channel: stable
+            version: 4.5.12
+            installPlanApproval: Automatic
+            upgradeApproval: Automatic 
+            name: ovirt-operator
+            source: redhat-operators
+            sourceNamespace: openshift-marketplace      
+---
 MTV Operator 
 ---
 apiVersion: policy.open-cluster-management.io/v1
