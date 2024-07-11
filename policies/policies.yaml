@@ -6,6 +6,11 @@ kind: Policy
 metadata:
   name: install-openshift-virt
   namespace: open-cluster-management-global-set
+  creationTimestamp: 2024-07-11T16:24:48Z
+  generation: 3
+  managedFields:
+  resourceVersion: "242112"
+  uid: c52ffca3-84e1-49cd-9381-c91ac78a291f
 spec:
   disabled: false
   policy-templates:
@@ -16,17 +21,86 @@ spec:
           name: install-ovirt
         spec:
           name: ovirt-operator
+          complianceType: musthave
           remediationAction: enforce
           severity: critical
-          complianceType: musthave
           subscription:
-            name: virt
+            name: kubevirt-hyperconverged
             channel: stable
-            installPlanApproval: Automatic
-            upgradeApproval: Automatic
             source: redhat-operators
-            sourceNamespace: openshift-marketplace  
-          upgradeApproval: None  
+            sourceNamespace: openshift-marketplace
+          upgradeApproval: None
+status:
+  compliant: NonCompliant
+  placement:
+    - placement: global
+      placementBinding: install-openshift-virt-placement
+  status:
+    - clustername: local-cluster
+      clusternamespace: local-cluster
+      compliant: NonCompliant
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: global
+  namespace: open-cluster-management-global-set
+  creationTimestamp: 2024-07-11T16:21:24Z
+  generation: 1
+  resourceVersion: "235998"
+  uid: 9a9d9de4-33d4-4622-977a-c991a8c63b7c
+spec:
+  clusterSets:
+    - global
+  decisionStrategy:
+    groupStrategy:
+      clustersPerDecisionGroup: 0
+  prioritizerPolicy:
+    mode: Additive
+  spreadPolicy: {}
+  tolerations:
+    - key: cluster.open-cluster-management.io/unreachable
+      operator: Equal
+    - key: cluster.open-cluster-management.io/unavailable
+      operator: Equal
+status:
+  conditions:
+    - lastTransitionTime: 2024-07-11T16:21:24Z
+      message: Placement configurations check pass
+      reason: Succeedconfigured
+      status: "False"
+      type: PlacementMisconfigured
+    - lastTransitionTime: 2024-07-11T16:21:24Z
+      message: All cluster decisions scheduled
+      reason: AllDecisionsScheduled
+      status: "True"
+      type: PlacementSatisfied
+  decisionGroups:
+    - clusterCount: 1
+      decisionGroupIndex: 0
+      decisionGroupName: ""
+      decisions:
+        - global-decision-1
+  numberOfSelectedClusters: 1
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: install-openshift-virt-placement
+  namespace: open-cluster-management-global-set
+  creationTimestamp: 2024-07-11T16:24:48Z
+  generation: 1
+  resourceVersion: "238986"
+  uid: 4d6f44dd-eb84-4ea4-8351-fc0fe8e0eefc
+placementRef:
+  name: global
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+subjects:
+  - name: install-openshift-virt
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
+
 ---
 MTV Operator 
 ---
