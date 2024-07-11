@@ -15,17 +15,18 @@ spec:
         metadata:
           name: install-ovirt
         spec:
+          name: ovirt-operator
           remediationAction: enforce
           severity: critical
           complianceType: musthave
           subscription:
+            name: virt
             channel: stable
             version: 4.5.12
-            installPlanApproval: Automatic
-            upgradeApproval: Automatic 
-            name: ovirt-operator
-            source: redhat-operators
-            sourceNamespace: openshift-marketplace      
+          installPlanApproval: Automatic
+          upgradeApproval: Automatic
+          source: redhat-operators
+          sourceNamespace: openshift-marketplace  
 ---
 MTV Operator 
 ---
