@@ -23,10 +23,10 @@ spec:
             name: virt
             channel: stable
             version: 4.5.12
-          installPlanApproval: Automatic
-          upgradeApproval: Automatic
-          source: redhat-operators
-          sourceNamespace: openshift-marketplace  
+            installPlanApproval: Automatic
+            upgradeApproval: Automatic
+            source: redhat-operators
+            sourceNamespace: openshift-marketplace  
 ---
 MTV Operator 
 ---
